@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { PostsService } from './posts.service';
 
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly postService: PostsService) {}
+  constructor(private readonly postService: PostsService) { }
   @Get()
   getPost() {
     return this.postService.getPosts();
@@ -15,7 +15,18 @@ export class PostsController {
   }
 
   @Get(':id')
-  getPostId() {
-    return this.postService.getPostId();
+  getPostId(@Param('id') id: string) {
+    return this.postService.getPostId(id);
   }
+
+  @Put(':id')
+  updatePost(@Param('id') id: string, @Body() body: any) {
+    return this.postService.updatePost(id, body);
+  }
+
+  @Delete(':id')
+  deletePost(@Param('id') id: string) {
+    return this.postService.deletePost(id);
+  }
+
 }
