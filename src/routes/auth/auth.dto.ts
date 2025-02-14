@@ -31,8 +31,21 @@ class RegisterData {
         Object.assign(this, partial);
     }
 }
+class LoginData {
+    email: string
+    password: string
+
+    constructor(partial: Partial<RegisterData>) {
+        Object.assign(this, partial);
+    }
+}
 
 export class RegisterEntity extends SuccessResDTO {
     @Type(() => RegisterData)
     data: RegisterData
+}
+
+export class LoginEntity extends SuccessResDTO {
+    @Type(() => LoginData)
+    data: LoginData
 }
