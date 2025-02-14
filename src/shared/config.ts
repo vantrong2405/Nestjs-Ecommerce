@@ -28,10 +28,10 @@ class ConfigSchema {
 }
 
 const configServer = plainToInstance(ConfigSchema, process.env)
-const e = validateSync(configServer)
-if (e.length > 0) {
+const errorArrays = validateSync(configServer)
+if (errorArrays.length > 0) {
     console.log('Các giá trị khai báo trong file .env không hợp lệ');
-    const errors = e.map((error) => {
+    const errors = errorArrays.map((error) => {
         return {
             property: error.property,
             constraints: error.constraints,
@@ -40,8 +40,6 @@ if (e.length > 0) {
     })
     throw errors
 }
-
-console.log("🚀 ~ e:", configServer)
 
 const envConfig = configServer
 export default envConfig
