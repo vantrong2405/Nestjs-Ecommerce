@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { UnprocessableEntityException, ValidationPipe } from '@nestjs/common'
+import { LoggingInterceptor } from './shared/interceptor/logging.interceptor'
+import { TransformInterceptor } from './shared/interceptor/transform.interceptor'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -20,6 +22,8 @@ async function bootstrap() {
       return new UnprocessableEntityException(errors)
     }
   }))
+  app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalInterceptors(new TransformInterceptor());
   console.log('Server is running on http://localhost:3000')
   await app.listen(process.env.PORT ?? 3000)
 }

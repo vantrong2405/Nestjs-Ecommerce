@@ -1,5 +1,6 @@
-import { Exclude, Expose } from "class-transformer"
+import { Exclude, Type } from "class-transformer"
 import { IsString } from "class-validator"
+import { SuccessResDTO } from "src/shared/shared.dto"
 
 export class LoginBodyDTO {
     @IsString()
@@ -18,7 +19,7 @@ export class RegisterBodyDTO extends LoginBodyDTO {
     confirmPassword: string
 }
 
-export class RegisterEntity {
+class RegisterData {
     id: number
     email: string
     name: string
@@ -26,13 +27,12 @@ export class RegisterEntity {
     createdAt: Date
     updatedAt: Date
 
-    // Thêm trường vào dữ liệu trả về
-    @Expose()
-    fullName() {
-        return this.name + ' - ' + this.email
-    }
-
-    constructor(partial: Partial<RegisterEntity>) {
+    constructor(partial: Partial<RegisterData>) {
         Object.assign(this, partial);
     }
+}
+
+export class RegisterEntity extends SuccessResDTO {
+    @Type(() => RegisterData)
+    data: RegisterData
 }
