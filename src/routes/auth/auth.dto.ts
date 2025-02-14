@@ -11,7 +11,6 @@ export class LoginBodyDTO {
 }
 
 export class RegisterBodyDTO extends LoginBodyDTO {
-
     @IsString()
     name: string
 
@@ -34,7 +33,6 @@ class RegisterData {
 class LoginData {
     email: string
     password: string
-
     constructor(partial: Partial<RegisterData>) {
         Object.assign(this, partial);
     }
@@ -48,4 +46,13 @@ export class RegisterEntity extends SuccessResDTO {
 export class LoginEntity extends SuccessResDTO {
     @Type(() => LoginData)
     data: LoginData
+}
+
+export class RefreshTokenBodyDTO {
+    @IsString()
+    refreshToken: string
+}
+
+export class RefreshtokenEntity extends LoginEntity {
+
 }
