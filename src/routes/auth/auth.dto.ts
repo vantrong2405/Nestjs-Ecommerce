@@ -59,3 +59,13 @@ export class RefreshTokenBodyDTO {
 export class RefreshtokenEntity extends LoginEntity {
 
 }
+
+
+export class LogoutBodyDTO extends RefreshTokenBodyDTO { }
+
+export class LogoutResDTO {
+    message: string
+    constructor(partial: Partial<LogoutResDTO>) {
+        Object.assign(this, partial);
+    }
+}

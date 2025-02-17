@@ -9,7 +9,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthenticationGuard } from './guards/authentication.guard';
 
 @Global()
-@Global()
 @Module({
     imports: [JwtModule],
     providers: [
